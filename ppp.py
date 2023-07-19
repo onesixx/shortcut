@@ -1,7 +1,7 @@
 # https://www.youtube.com/watch?v=XbWhJdQgi7E
 
 import gym
-from customEnv import customEnv
+#from customEnv import customEnv
 from stable_baselines3 import A2C
 
 env= gym.make("LunarLander-v2")
