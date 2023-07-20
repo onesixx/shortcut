@@ -1,3 +1,8 @@
+# import atari_py.import_roms
+python -m atari_py.import_roms <path to folder>
+
+
+
 from stable_baselines3.common.env_util import make_atari_env
 from stable_baselines3.common.vec_env import VecFrameStack
 from stable_baselines3 import A2C
