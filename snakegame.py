@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 import random
 import time
-0000iijhh
+
 def collision_with_apple(apple_position, score):
     apple_position = [random.randrange(1,50)*10, 
                       random.randrange(1,50)*10]
@@ -12,8 +12,7 @@ def collision_with_apple(apple_position, score):
     return apple_position, score
 
 def collision_with_boundaries(snake_head):
-    if snake_head[0]>=500 or snake_head[0]<0 or \
-       snake_head[1]>=500 or snake_head[1]<0 :
+    if snake_head[0]>=500 or snake_head[0]<0 or  snake_head[1]>=500 or snake_head[1]<0 :
         return 1
     else:
         return 0
@@ -46,14 +45,13 @@ while True:
         cv2.rectangle(img,(position[0],position[1]),(position[0]+10,position[1]+10),(0,255,0),3)
     
     # Takes step after fixed time
-    t_end = time.time() + 0.2
+    t_end = time.time() + 0.1
     k = -1
     while time.time() < t_end:
         if k == -1:
-            k = cv2.waitKey(125)
+            k = cv2.waitKey(12)
         else:
             continue
-            
     # 0-Left, 1-Right, 3-Up, 2-Down, q-Break
     # a-Left, d-Right, w-Up, s-Down
 
