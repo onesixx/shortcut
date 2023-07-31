@@ -105,10 +105,12 @@ class SnekEnv(gym.Env):
         elif action == 3:
             self.snake_head[1] -= 10
 
+        apple_reward = 0
         # Increase Snake length on eating apple
         if self.snake_head == self.apple_position:
             self.apple_position, self.score = collision_with_apple(self.apple_position, self.score)
             self.snake_position.insert(0,list(self.snake_head))
+            apple_reward = 10000
         else:
             self.snake_position.insert(0,list(self.snake_head))
             self.snake_position.pop()
@@ -123,8 +125,16 @@ class SnekEnv(gym.Env):
             #cv2.waitKey(0)
             #cv2.imwrite('D:/downloads/ii.jpg',img)
             #break
+        ecdn_dist_to_apple = np.linalg.norm(
+            np.array(self.snake_head) - np.array(self.apple_position)
+        )
+        self.total_reward = ((250-ecdn_dist_to_apple) + apple_reward) /100
+        #self.total_reward = (250 - ecdn_dist_to_apple)+ apple_reward
 
-        self.total_reward = len(self.snake_position) -3
+        # self.total_reward = len(self.snake_position) -3 - ecdn_dist_to_apple
+        #self.total_reward = len(self.snake_position) -3
+        print(f'total reward : {self.total_reward}')
+
         self.reward = self.total_reward - self.prev_reward
         self.prev_reward = self.total_reward
 
