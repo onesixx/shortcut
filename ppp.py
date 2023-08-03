@@ -10,18 +10,16 @@
 
   pip install 'stable-baselines3[extra]'
   pip install sb3-contrib
-  
+
   conda install -c conda-forge gym
   conda install -c conda-forge box2d-py==2.3.8
   ## pip install 'gym[all]'
 '''
 
 import gym
-#from customEnv import customEnv
 from stable_baselines3 import A2C
 
 env= gym.make("LunarLander-v2")
-#env = customEnv()
 env.reset()
 
 model= A2C("MlpPolicy", env, verbose=1)

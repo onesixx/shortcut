@@ -1,7 +1,6 @@
 # https://www.youtube.com/watch?v=XbWhJdQgi7E
 
 import gym
-from customEnv import customEnv
 from stable_baselines3 import PPO, A2C
 import os
 
@@ -13,7 +12,6 @@ model_path = f"{model_dir}/170000.zip"
 
 
 env= gym.make("LunarLander-v2", render_mode="rgb_array")
-#env = customEnv()
 env.reset()
 
 ## Training & Saving

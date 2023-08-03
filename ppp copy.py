@@ -1,7 +1,6 @@
 # https://www.youtube.com/watch?v=XbWhJdQgi7E
 
 import gym
-from customEnv import customEnv
 from stable_baselines3 import PPO, A2C
 import os
 
@@ -15,7 +14,6 @@ if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
 env= gym.make("LunarLander-v2", render_mode="rgb_array")
-#env = customEnv()
 env.reset()
 
 ## Training & Saving
