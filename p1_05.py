@@ -1,35 +1,42 @@
 
 import inspect
+import numpy as np
 #-------------------------------------------------------------------------------
 import gymnasium
 from stable_baselines3 import A2C
 
-env = gymnasium.make('LunarLander-v2',render_mode="rgb_array")
-env.reset()
+env = gymnasium.make('LunarLander-v2',render_mode="human")
+
+# print(inspect.getsource(env.__init__))
+# print(inspect.getsource(gymnasium.utils.RecordConstructorArgs.__init__))
+
+# print(inspect.getsource(env.reset))
+# print(inspect.getsource(env.step))
+
+
+print('----------------------------train----------------------------')
 # ------------------------------------------------------------------------------
 # for step in range(200):
-#     #env.render()
+#     env.render()
 #     some_action = env.action_space.sample()
-#     print(f'action::{some_action}')
 #     observation, reward, terminated, truncated, info = env.step(some_action)
-#     print(f'obs::{observation}')
-#     print(f'reward::{reward}')
-#     #print(f'obs::{obs}, reward::{reward}, done::{done}, info::{info}')
 # ------------------------------------------------------------------------------
 model = A2C('MlpPolicy', env, verbose=1)
-# model.learn(total_timesteps=10000)
-# episodes = 10
+model.learn(total_timesteps=100)
 
-model.learn(total_timesteps=100000)
+
+print('-----------------------------predict---------------------------')
 episodes = 5
 for ep in range(episodes):
-	obs = env.reset()
+	# ep=0
+	print(ep)
+	obs, _= env.reset()
 	done = False
 	while not done:
 		# pass observation to model to get predicted action
 		action, _states = model.predict(obs)
 		# pass action to env and get info back
-		obs, rewards, done, info = env.step(action)
+		obs, rewards, done, info , _ = env.step(action)
 		# show the environment on the screen
 		env.render()
 env.close()

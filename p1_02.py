@@ -2,7 +2,7 @@
 import inspect
 #-------------------------------------------------------------------------------
 import gymnasium
-env = gymnasium.make('LunarLander-v2',render_mode="rgb_array")
+env = gymnasium.make('LunarLander-v2',render_mode="human")
 # => init reset step
 # required before you can step the environment
 env.reset()
@@ -11,13 +11,16 @@ env.reset()
 #         -4.8535669e-04, -9.7408723e-03,  0.0000000e+00,  0.0000000e+00],
 #        dtype=float32),
 #  {})
-print(inspect.getsource(env.__init__))
-print(inspect.getsource(env.reset))
-print(inspect.getsource(env.step))
+
+# print(inspect.getsource(env.__init__))
+# print(inspect.getsource(gymnasium.utils.RecordConstructorArgs.__init__))
+
+# print(inspect.getsource(env.reset))
+# print(inspect.getsource(env.step))
 
 # ------------------------------------------------------------------------------
-for step in range(200):
-    #env.render()
+for step in range(100):
+    env.render()
     some_action = env.action_space.sample()
     print(f'action::{some_action}')
     observation, reward, terminated, truncated, info = env.step(some_action)

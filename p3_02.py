@@ -1,6 +1,6 @@
 import gymnasium
 from gymnasium import spaces
-import p3_u
+import p3_0u
 
 # p3_u.collision_with_apple([250,250],0)
 
@@ -8,6 +8,7 @@ import p3_u
 # p3_u.collision_with_boundaries([500,0])
 
 # p3_u.collision_with_self([250,250])
+
 
 import numpy as np
 import cv2
@@ -26,7 +27,10 @@ class CustomEnv(env):
         self.observation_space = spaces.Box( low=-500, high=500,
             shape=(5+SNAKE_LEN_GOAL, ), dtype=np.float32)
         # self.action_space = spaces.Discrete(4)
-        # observation = [head_x, head_y, apple_delta_x, apple_delta_y, snake_length] + list(self.prev_actions)
+        # observation = [head_x,        head_y,
+        #                apple_delta_x, apple_delta_y,
+        #                snake_length] +
+        #                list(self.prev_actions)
         # self.total_reward = len(self.snake_position) - 3
 
     def reset(self):
@@ -34,7 +38,7 @@ class CustomEnv(env):
 
         # Initial Snake and Apple position
         self.snake_position = [[250,250],[240,250],[230,250]]
-        self.apple_position = [random.randrange(1,50)*10,random.randrange(1,50)*10]
+        self.apple_position = [random.randrange(1,50)*10, random.randrange(1,50)*10]
         self.score = 0
 
         self.prev_button_direction = 1
@@ -92,13 +96,13 @@ class CustomEnv(env):
             self.snake_head[1] -= 10
         # Increase Snake length on eating apple
         if self.snake_head == self.apple_position:
-            self.apple_position, self.score = p3_u.collision_with_apple(self.apple_position, self.score)
+            self.apple_position, self.score = p3_0u.collision_with_apple(self.apple_position, self.score)
             self.snake_position.insert(0,list(self.snake_head))
         else:
             self.snake_position.insert(0,list(self.snake_head))
             self.snake_position.pop()
         # On collision kill the snake and print the score
-        if p3_u.collision_with_boundaries(self.snake_head) == 1 or p3_u.collision_with_self(self.snake_position) == 1:
+        if p3_0u.collision_with_boundaries(self.snake_head) == 1 or p3_0u.collision_with_self(self.snake_position) == 1:
             font = cv2.FONT_HERSHEY_SIMPLEX
             self.img = np.zeros((500,500,3),dtype='uint8')
             cv2.putText(self.img,'Your Score is {}'.format(self.score),(140,250), font, 1,(255,255,255),2,cv2.LINE_AA)

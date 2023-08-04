@@ -1,30 +1,30 @@
-import inspect
 import os
 
 models_dir = "p_models/PPO"
-if not os.path.exists(models_dir):
-    os.makedirs(models_dir)
-
+logdir = "p_logs"
 #-------------------------------------------------------------------------------
 import gymnasium
 from stable_baselines3 import PPO
 
-env = gymnasium.make('LunarLander-v2',render_mode="rgb_array")
+env = gymnasium.make('LunarLander-v2',render_mode="human")
 env.reset()
 
-model_path = f"{models_dir}/250000.zip"
-# model = PPO('MlpPolicy', env, verbose=1)
-model = PPO.load('MlpPolicy', env, verbose=1)
+model_path = f"{models_dir}/7800.zip"
+model = PPO.load(model_path, env, verbose=1)
+
+
 
 episodes = 5
 for ep in range(episodes):
-	obs = env.reset()
-	done = False
-	while not done:
-		# pass observation to model to get predicted action
-		action, _states = model.predict(obs)
-		# pass action to env and get info back
-		obs, rewards, done, info = env.step(action)
-		# show the environment on the screen
-		env.render()
+    # ep =0
+    obs,  _ = env.reset()
+    done = False
+    while not done:
+        action, _states = model.predict(obs)            # To get predicted action, pass observation to model
+        print(f'action:: {action} '+'\n'+'-'*66)
+
+        obs, rewards, done, info, _ = env.step(action) # pass action to env & get info back
+        print(f'obs:: {obs}  \n rewards::{rewards}'+'\n'+'-'*66)
+
+        env.render()  # show the environment on the screen
 env.close()
