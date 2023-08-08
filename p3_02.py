@@ -138,3 +138,8 @@ class CustomEnv(env):
     def close (self):
         colse =0
 # ------------------------------------------------------------------------------
+
+
+import inspect
+env  = CustomEnv()
+dir(env)

@@ -12,5 +12,4 @@ print(env.observation_space)
 print(env.observation_space.low)
 print(env.observation_space.high)
 print(env._max_episode_steps)
-
 print(env.action_space)
